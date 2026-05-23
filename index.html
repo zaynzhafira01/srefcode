@@ -133,7 +133,7 @@ h1 em{color:var(--plum);font-style:italic}
 <div class="toast" id="toast"></div>
 
 <script>
-const JSON_URL = 'https://cdn.jsdelivr.net/gh/zaynzhafira01/srefcode@main/srefspart 2.json';
+const JSON_URL = 'https://cdn.jsdelivr.net/gh/zaynzhafira01/srefcode@main/srefspart2.json';
 
 let allSrefs = [], activeFilter = 'all', searchQuery = '';
 
@@ -155,7 +155,7 @@ async function loadSrefs() {
     document.getElementById('errorState').innerHTML = `
       <div class="error-box">
         <div class="err-icon">😢</div>
-        <p>Gagal memuat library.<br>Pastikan file <code>srefspart 2.json</code> sudah ada di GitHub.<br><br><small style="color:var(--muted)">${err.message}</small></p>
+        <p>Gagal memuat library.<br>Pastikan file <code>srefspart2.json</code> sudah ada di GitHub.<br><br><small style="color:var(--muted)">${err.message}</small></p>
       </div>`;
   }
 }
