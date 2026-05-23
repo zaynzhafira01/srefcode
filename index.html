@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sref Library – Midjourney Style Reference</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#F5F0FA;--bg2:#EDE5F5;--bg3:#E4D9F0;
+  --surface:#FFFFFF;--border:#DDD0EE;--border2:#C9B8E8;
+  --plum:#7C3FA8;--plum-dark:#5F2E82;--rose:#C25C8A;
+  --teal:#3A8F7F;--text:#1A0A2E;--text2:#4A3468;
+  --muted:#8B72A8;--faint:#C0AAD8;
+  --radius:16px;--radius-sm:10px;
+}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+
+/* HEADER */
+.header{padding:2rem 2rem 1.5rem;background:linear-gradient(160deg,#FAF7FF 0%,#F0E8FF 100%);border-bottom:1px solid var(--border);text-align:center;position:relative;overflow:hidden}
+.header::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%,rgba(124,63,168,.08) 0%,transparent 60%),radial-gradient(ellipse at 70% 30%,rgba(194,92,138,.06) 0%,transparent 50%);pointer-events:none}
+.badge{display:inline-flex;align-items:center;gap:6px;background:#F3EEFF;border:1px solid var(--border2);color:var(--plum);font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:4px 14px;border-radius:99px;margin-bottom:.75rem}
+.bdot{width:5px;height:5px;background:var(--plum);border-radius:50%;animation:blink 2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+h1{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:900;line-height:1.1;margin-bottom:.5rem}
+h1 em{color:var(--plum);font-style:italic}
+.sub{font-size:13.5px;color:var(--muted);margin-bottom:1.25rem}
+
+/* SEARCH */
+.search-wrap{max-width:420px;margin:0 auto;position:relative}
+.search-wrap input{width:100%;padding:11px 16px 11px 42px;border:2px solid var(--border2);border-radius:99px;font-size:14px;font-family:'DM Sans',sans-serif;color:var(--text);background:var(--surface);outline:none;transition:border-color .2s,box-shadow .2s}
+.search-wrap input:focus{border-color:var(--plum);box-shadow:0 0 0 3px rgba(124,63,168,.12)}
+.search-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--muted);pointer-events:none}
+.search-icon svg{width:16px;height:16px}
+
+/* STATS BAR */
+.stats-bar{padding:.65rem 2rem;background:var(--bg2);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:1.5rem;font-size:12px;flex-wrap:wrap}
+.stat-item{display:flex;align-items:center;gap:5px;color:var(--muted)}
+.stat-item strong{color:var(--text2);font-weight:600}
+.last-update{margin-left:auto;font-size:11px;color:var(--faint)}
+
+/* MAIN */
+.content{padding:1.5rem 2rem;max-width:1400px;margin:0 auto}
+
+/* FILTER */
+.filter-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:1.25rem;align-items:center}
+.filter-label{font-size:11.5px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-right:4px}
+.chip{padding:5px 14px;border-radius:99px;border:1.5px solid var(--border);background:var(--surface);color:var(--muted);font-size:12px;font-family:'DM Sans',sans-serif;cursor:pointer;transition:all .15s}
+.chip:hover{border-color:var(--border2);color:var(--text2)}
+.chip.active{background:var(--plum);border-color:var(--plum);color:#fff;font-weight:500}
+
+/* LOADING */
+.loading{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:300px;gap:1rem;color:var(--muted)}
+.spinner{width:36px;height:36px;border:3px solid var(--border);border-top-color:var(--plum);border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* EMPTY */
+.empty-state{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:280px;text-align:center;color:var(--muted);gap:.75rem}
+.empty-state .es-icon{font-size:3rem;opacity:.3}
+.empty-state p{font-size:13px;line-height:1.6;max-width:240px}
+
+/* CARD GRID */
+.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:14px}
+@media(max-width:480px){.card-grid{grid-template-columns:repeat(2,1fr);gap:10px}}
+
+.card{background:var(--surface);border:1.5px solid var(--border);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;transition:border-color .2s,box-shadow .2s,transform .2s;cursor:default}
+.card:hover{border-color:var(--border2);box-shadow:0 8px 28px rgba(80,40,130,.13);transform:translateY(-3px)}
+.iw{position:relative;aspect-ratio:1/1;overflow:hidden;background:var(--bg3)}
+.iw img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s}
+.card:hover .iw img{transform:scale(1.05)}
+.no-preview{display:flex;align-items:center;justify-content:center;height:100%;flex-direction:column;gap:.5rem;padding:1rem;text-align:center;background:linear-gradient(135deg,var(--bg2),var(--bg3))}
+.sref-code-preview{font-size:10.5px;font-family:monospace;color:var(--plum);background:rgba(255,255,255,.7);padding:5px 8px;border-radius:7px;word-break:break-all;border:1px dashed var(--border2);max-width:140px}
+.no-preview-icon{font-size:2.2rem;opacity:.5}
+.ctag{position:absolute;top:8px;left:8px;background:rgba(245,240,250,.92);backdrop-filter:blur(8px);border:1px solid var(--border);color:var(--text2);font-size:9px;padding:3px 8px;border-radius:99px;font-weight:600}
+
+.cb{padding:11px 11px 13px;flex:1;display:flex;flex-direction:column;gap:6px}
+.ct{font-family:'Playfair Display',serif;font-size:13px;font-weight:700;line-height:1.3;color:var(--text)}
+.sref-display{display:flex;align-items:center;gap:4px;background:var(--bg2);border-radius:6px;padding:4px 8px}
+.sref-code{font-size:10px;font-family:monospace;color:var(--plum);flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:.02em}
+.tags{display:flex;flex-wrap:wrap;gap:3px;margin-top:1px}
+.tag{font-size:9px;padding:2px 7px;background:var(--bg2);color:var(--muted);border-radius:5px}
+
+/* COPY BUTTON */
+.copy-sref-btn{width:100%;padding:8px 10px;background:var(--plum);color:#fff;border:none;border-radius:9px;font-size:12px;font-weight:600;font-family:'DM Sans',sans-serif;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center;gap:5px;margin-top:auto}
+.copy-sref-btn:hover{background:var(--plum-dark);transform:scale(1.02)}
+.copy-sref-btn.copied{background:var(--teal)}
+.copy-sref-btn svg{width:12px;height:12px;flex-shrink:0}
+
+/* TOAST */
+.toast{position:fixed;bottom:2rem;right:2rem;background:var(--text);color:#fff;padding:11px 20px;border-radius:11px;font-size:13px;font-weight:500;opacity:0;transform:translateY(10px);transition:opacity .25s,transform .25s;pointer-events:none;z-index:999;max-width:280px;text-align:center;box-shadow:0 8px 24px rgba(26,10,46,.3)}
+.toast.show{opacity:1;transform:translateY(0)}
+
+/* ERROR */
+.error-box{margin:2rem auto;max-width:420px;background:#FFF0F6;border:1.5px solid #EFC0D5;border-radius:var(--radius);padding:1.5rem;text-align:center}
+.error-box .err-icon{font-size:2rem;margin-bottom:.5rem}
+.error-box p{font-size:13px;color:var(--text2);line-height:1.6}
+.error-box code{font-size:11px;background:var(--bg2);padding:2px 6px;border-radius:4px;color:var(--plum)}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="badge"><span class="bdot"></span>Midjourney Style Reference</div>
+  <h1>Sref <em>Library</em></h1>
+  <p class="sub">Koleksi style reference Midjourney siap pakai — klik copy, langsung tempel di prompt ✨</p>
+  <div class="search-wrap">
+    <span class="search-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
+    <input type="text" id="searchInput" placeholder="Cari nama, kategori, atau tag..." oninput="handleSearch()">
+  </div>
+</div>
+
+<div class="stats-bar">
+  <div class="stat-item">✨ <strong id="countStat">—</strong> sref</div>
+  <div class="stat-item" id="filteredStat" style="display:none">🔍 <strong id="filteredCount">—</strong> hasil</div>
+  <div class="last-update" id="lastUpdate"></div>
+</div>
+
+<div class="content">
+  <div class="filter-row" id="filterRow" style="display:none"></div>
+  <div class="loading" id="loadingState">
+    <div class="spinner"></div>
+    <span>Memuat library...</span>
+  </div>
+  <div id="errorState" style="display:none"></div>
+  <div class="empty-state" id="emptyState" style="display:none">
+    <div class="es-icon">🔍</div>
+    <p>Tidak ada sref yang cocok dengan pencarianmu.</p>
+  </div>
+  <div class="card-grid" id="cardGrid" style="display:none"></div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const JSON_URL = 'https://cdn.jsdelivr.net/gh/zaynzhafira01/srefcode@main/srefs.json';
+
+let allSrefs = [], activeFilter = 'all', searchQuery = '';
+
+async function loadSrefs() {
+  try {
+    const res = await fetch(JSON_URL + '?t=' + Date.now()); // cache bust
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    allSrefs = Array.isArray(data) ? data : [];
+
+    document.getElementById('countStat').textContent = allSrefs.length;
+    document.getElementById('lastUpdate').textContent = 'Updated: ' + new Date().toLocaleDateString('id-ID', {day:'numeric',month:'short',year:'numeric'});
+
+    buildFilters();
+    renderGrid();
+  } catch(err) {
+    document.getElementById('loadingState').style.display = 'none';
+    document.getElementById('errorState').style.display = 'block';
+    document.getElementById('errorState').innerHTML = `
+      <div class="error-box">
+        <div class="err-icon">😢</div>
+        <p>Gagal memuat library.<br>Pastikan file <code>srefs.json</code> sudah ada di GitHub.<br><br><small style="color:var(--muted)">${err.message}</small></p>
+      </div>`;
+  }
+}
+
+function buildFilters() {
+  const cats = [...new Set(allSrefs.map(s => s.cat).filter(Boolean))];
+  if (cats.length <= 1) return;
+  const row = document.getElementById('filterRow');
+  row.style.display = 'flex';
+  row.innerHTML = `<span class="filter-label">Kategori:</span>` +
+    ['Semua', ...cats].map(c => {
+      const val = c === 'Semua' ? 'all' : c;
+      return `<button class="chip${activeFilter === val ? ' active' : ''}" onclick="filterBy('${val}')">${c}</button>`;
+    }).join('');
+}
+
+function filterBy(val) {
+  activeFilter = val;
+  buildFilters();
+  renderGrid();
+}
+
+function handleSearch() {
+  searchQuery = document.getElementById('searchInput').value.toLowerCase().trim();
+  renderGrid();
+}
+
+function renderGrid() {
+  document.getElementById('loadingState').style.display = 'none';
+
+  let filtered = allSrefs;
+  if (activeFilter !== 'all') filtered = filtered.filter(s => s.cat === activeFilter);
+  if (searchQuery) {
+    filtered = filtered.filter(s =>
+      s.name?.toLowerCase().includes(searchQuery) ||
+      s.cat?.toLowerCase().includes(searchQuery) ||
+      s.code?.toLowerCase().includes(searchQuery) ||
+      s.tags?.some(t => t.toLowerCase().includes(searchQuery))
+    );
+  }
+
+  const grid = document.getElementById('cardGrid');
+  const empty = document.getElementById('emptyState');
+  const filteredStat = document.getElementById('filteredStat');
+
+  // show filtered count if searching/filtering
+  if (searchQuery || activeFilter !== 'all') {
+    filteredStat.style.display = 'flex';
+    document.getElementById('filteredCount').textContent = filtered.length;
+  } else {
+    filteredStat.style.display = 'none';
+  }
+
+  if (filtered.length === 0) {
+    empty.style.display = 'flex';
+    grid.style.display = 'none';
+    return;
+  }
+
+  empty.style.display = 'none';
+  grid.style.display = 'grid';
+
+  grid.innerHTML = filtered.map((s, i) => {
+    const shortCode = s.code?.length > 20 ? s.code.slice(0, 20) + '…' : s.code;
+    const safeCode = (s.code || '').replace(/'/g, "\\'");
+    const imgArea = s.dataUrl
+      ? `<img src="${s.dataUrl}" alt="${s.name}" loading="lazy">`
+      : `<div class="no-preview"><div class="no-preview-icon">🎨</div><div class="sref-code-preview">--sref ${shortCode}</div></div>`;
+
+    return `
+      <div class="card" style="animation:fadeUp .3s ease ${i * 0.04}s both">
+        <div class="iw">
+          ${imgArea}
+          ${s.cat ? `<span class="ctag">${s.cat}</span>` : ''}
+        </div>
+        <div class="cb">
+          <div class="ct">${s.name || 'Tanpa Nama'}</div>
+          <div class="sref-display">
+            <span class="sref-code">--sref ${s.code}</span>
+          </div>
+          ${s.tags?.length ? `<div class="tags">${s.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>` : ''}
+          <button class="copy-sref-btn" onclick="copySref('${safeCode}', this)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            Copy --sref
+          </button>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+function copySref(code, btn) {
+  const fullCode = `--sref ${code}`;
+  const doFallback = () => {
+    const ta = document.createElement('textarea');
+    ta.value = fullCode; document.body.appendChild(ta); ta.select();
+    document.execCommand('copy'); document.body.removeChild(ta);
+    flashCopied(btn, code);
+  };
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(fullCode).then(() => flashCopied(btn, code)).catch(doFallback);
+  } else { doFallback(); }
+}
+
+function flashCopied(btn, code) {
+  btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Tersalin!`;
+  btn.classList.add('copied');
+  showToast(`📋 --sref ${code.length > 18 ? code.slice(0,18)+'...' : code} tersalin!`);
+  setTimeout(() => {
+    btn.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy --sref`;
+    btn.classList.remove('copied');
+  }, 2000);
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+// ANIMATION
+const style = document.createElement('style');
+style.textContent = `@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}`;
+document.head.appendChild(style);
+
+// LOAD
+loadSrefs();
+</script>
+</body>
+</html>
